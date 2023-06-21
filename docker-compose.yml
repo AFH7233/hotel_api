@@ -6,10 +6,9 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./rest-api/target/rest-api-1.0-SNAPSHOT.war:/usr/local/tomcat/webapps/rest-api.war
+      - ./rest-api/target/rest-api-1.0-SNAPSHOT.war:/usr/local/tomcat/webapps/ROOT.war
     environment:
       - JAVA_OPTS=-Dfile.encoding=UTF-8
-    command: "catalina.sh run"
 
 volumes:
   war:
