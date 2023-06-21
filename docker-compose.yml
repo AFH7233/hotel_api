@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  rest-api:
+    image: tomcat:8.5.69-jdk8-openjdk-slim
+    ports:
+      - 8080:8080
+    volumes:
+      - ./rest-api/target/rest-api-1.0-SNAPSHOT.jar:/usr/local/tomcat/webapps/rest-api.war
+    environment:
+      - JAVA_OPTS=-Dfile.encoding=UTF-8
+    command: "catalina.sh run"
+
+volumes:
+  war:
