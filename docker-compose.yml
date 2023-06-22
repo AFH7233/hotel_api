@@ -1,14 +1,56 @@
 version: '3'
 
 services:
-  rest-api:
-    image: tomcat:8.5.69-jdk8-openjdk-slim
+  hotels-db:
+    image: mysql:8.0
+    container_name: hotels-db
+    environment:
+      MYSQL_ROOT_PASSWORD: porfavornomedespidanmeportobien
+      MYSQL_DATABASE: hotels_service_db
+      MYSQL_USER: near
+      MYSQL_PASSWORD: soft
     ports:
-      - 8080:8080
+      - "3306:3306"
+    volumes:
+      - ./database-init/hotels-db-init.sql:/docker-entrypoint-initdb.d/hotels-db-init.sql
+    networks:
+      - choice-network
+
+  soap-api:
+    build:
+      context: .
+      dockerfile: Dockerfile-soap
+    container_name: soap-api
+    image: soap-api:latest
+    ports:
+      - "8081:8081"
+    depends_on:
+      - hotels-db
+    environment:
+      ACCOUNT_SERVICE_DB_URL: jdbc:mysql://hotels-db:3306/hotels_service_db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      ACCOUNT_SERVICE_DB_USER: near
+      ACCOUNT_SERVICE_DB_PASSWORD: soft
+    networks:
+      - choice-network
+
+  rest-api:
+    build:
+      context: .
+      dockerfile: Dockerfile-rest
+    container_name: rest-api
+    image: rest-api:latest
+    depends_on:
+      - soap-api
+    ports:
+      - "8080:8080"
     volumes:
       - ./rest-api/target/rest-api-1.0-SNAPSHOT.war:/usr/local/tomcat/webapps/ROOT.war
-    environment:
-      - JAVA_OPTS=-Dfile.encoding=UTF-8
+    networks:
+      - choice-network
 
 volumes:
   war:
+  mysql-data:
+
+networks:
+  choice-network:

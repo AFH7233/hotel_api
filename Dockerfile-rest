@@ -1,0 +1,35 @@
+# Use OpenJDK 8 as the base image
+FROM openjdk:8-jdk-slim as build
+
+# Install Maven
+RUN apt-get update && apt-get install -y maven
+
+# Set the working directory
+WORKDIR /app
+
+# Copy common project
+COPY common/pom.xml common/
+COPY common/src common/src/
+RUN mvn install -DskipTests -f common/pom.xml
+
+# Set the working directory for the service
+WORKDIR /app/soap-api
+
+# Copy the service-specific POM and source files
+COPY rest-api/pom.xml .
+COPY rest-api/src ./src
+
+# Build the project inside the container
+RUN mvn clean package -DskipTests
+
+# Use Tomcat 8.5.69 with JDK 8 as the base image
+FROM tomcat:8.5.69-jdk8-openjdk-slim
+
+# Copy the WAR file to Tomcat's webapps directory
+COPY ./rest-api/target/rest-api-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
+
+# Expose port 8080 for the Tomcat container
+EXPOSE 8080
+
+# Start Tomcat when the container is launched
+CMD ["catalina.sh", "run"]

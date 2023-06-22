@@ -1,0 +1,35 @@
+# Use OpenJDK 8 as the base image
+FROM openjdk:8-jdk-slim as build
+
+# Install Maven
+RUN apt-get update && apt-get install -y maven
+
+# Set the working directory
+WORKDIR /app
+
+# Copy common project
+COPY common/pom.xml common/
+COPY common/src common/src/
+RUN mvn install -DskipTests -f common/pom.xml
+
+# Set the working directory for the service
+WORKDIR /app/soap-api
+
+# Copy the service-specific POM and source files
+COPY soap-api/pom.xml .
+COPY soap-api/src ./src
+
+# Build the project inside the container
+RUN mvn clean package -DskipTests
+
+# Use OpenJDK 8 as the base image for the application
+FROM openjdk:8-jdk-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the built JAR file from the build stage
+COPY --from=build /app/soap-api/target/*.jar app.jar
+
+# Wait for data bases and tun the application with the dev profile
+ENTRYPOINT ["java", "-jar", "app.jar", "--spring.profiles.active=dev"]
