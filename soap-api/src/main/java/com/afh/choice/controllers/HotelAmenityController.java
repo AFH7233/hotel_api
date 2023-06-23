@@ -6,14 +6,18 @@ import com.afh.choice.responses.HotelResponse;
 import com.afh.choice.services.interfaces.HotelAmenityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ws.server.endpoint.PayloadEndpoint;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import javax.websocket.MessageHandler;
+import javax.xml.transform.Source;
+
 @Endpoint
 @Component
-public class HotelAmenityController {
+public class HotelAmenityController implements MessageHandler {
 
     private static final String NAMESPACE_URI = "encora:choice";
 
