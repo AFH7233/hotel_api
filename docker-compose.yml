@@ -27,9 +27,9 @@ services:
     depends_on:
       - hotels-db
     environment:
-      ACCOUNT_SERVICE_DB_URL: jdbc:mysql://hotels-db:3306/hotels_service_db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-      ACCOUNT_SERVICE_DB_USER: near
-      ACCOUNT_SERVICE_DB_PASSWORD: soft
+      HOTELS_DB_URL: jdbc:mysql://hotels-db:3306/hotels_service_db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      HOTELS_DB_USER: near
+      HOTELS_DB_PASSWORD: soft
     networks:
       - choice-network
 
