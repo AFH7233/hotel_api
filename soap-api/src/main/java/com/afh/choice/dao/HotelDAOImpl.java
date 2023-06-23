@@ -1,6 +1,6 @@
 package com.afh.choice.dao;
 
-import com.afh.choice.dao.interfaces.HotelDAOInterface;
+import com.afh.choice.dao.interfaces.HotelDAO;
 import com.afh.choice.dto.Amenity;
 import com.afh.choice.dto.Hotel;
 import java.util.List;
@@ -11,12 +11,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class HotelDAO implements HotelDAOInterface {
+public class HotelDAOImpl implements HotelDAO {
 
   private final JdbcTemplate jdbcTemplate;
 
   @Autowired
-  public HotelDAO(JdbcTemplate jdbcTemplate) {
+  public HotelDAOImpl(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
   }
 

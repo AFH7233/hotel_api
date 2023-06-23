@@ -3,7 +3,7 @@ package com.afh.choice.dao.interfaces;
 import com.afh.choice.dto.Hotel;
 import java.util.List;
 
-public interface HotelDAOInterface {
+public interface HotelDAO {
   void createHotel(Hotel hotel);
 
   void updateHotel(Hotel hotel);
