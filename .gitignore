@@ -30,3 +30,6 @@ replay_pid*
 **/target
 *.iml
 .idea
+
+
+soap-api/src/main/java/META-INF
