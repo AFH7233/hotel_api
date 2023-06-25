@@ -1,17 +1,32 @@
 package com.afh.choice.services.interfaces;
 
-import com.afh.choice.dto.Hotel;
+import com.afh.choice.soap.Amenity;
+import com.afh.choice.soap.Hotel;
+import com.afh.choice.soap.HotelComplete;
+
+import java.util.List;
 
 public interface HotelAmenityService {
+
     void createHotel(Hotel hotel);
 
-    Hotel getHotelById(long hotelId);
+    List<HotelComplete> searchHotelsByName(String query);
 
     void updateHotel(Hotel hotel);
 
-    void deleteHotel(long hotelId);
+    void deleteHotel(String name);
 
-    void addAmenityToHotel(long hotelId, long amenityId);
+    void createAmenity(Amenity amenity);
 
-    void removeAmenityFromHotel(long hotelId, long amenityId);
+    void updateAmenity(Amenity amenity);
+
+    void deleteAmenity(String amenityName);
+
+    void addAmenityToHotel(String hotelName, String amenityName);
+
+    void removeAmenityToHotel(String hotelName, String amenityName);
+
+
+
+
 }

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://afh.com/choice/soap"
+           xmlns="http://afh.com/choice/soap"
+           elementFormDefault="qualified">
+
+    <!-- Commmon Types -->
+    <xs:complexType name="Amenity">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" minOccurs="0"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="description" type="xs:string" default=""/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Hotel">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"  minOccurs="0"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="address" type="xs:string"/>
+            <xs:element name="rating" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="HotelComplete">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"  minOccurs="0"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="address" type="xs:string"/>
+            <xs:element name="rating" type="xs:int"/>
+            <xs:element name="amenities" type="AmenityList"  minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="AmenityList">
+        <xs:sequence>
+            <xs:element name="amenity" type="Amenity" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="HotelList">
+        <xs:sequence>
+            <xs:element name="hotel" type="HotelComplete" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Request Messages -->
+    <xs:element name="createHotelRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="hotel" type="Hotel"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updateHotelRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="hotel" type="Hotel"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteHotelRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="hotelName" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="searchHotelsByNameRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="query" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createAmenityRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="amenity" type="Amenity"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updateAmenityRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="amenity" type="Amenity"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteAmenityRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="amenityName" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addAmenityToHotelRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="hotelName" type="xs:string"/>
+                <xs:element name="amenityName" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="removeAmenityFromHotelRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="hotelName" type="xs:string"/>
+                <xs:element name="amenityName" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <!-- Response Messages -->
+    <xs:element name="createHotelResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updateHotelResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteHotelResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="searchHotelsByNameResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="hotels" type="HotelComplete" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createAmenityResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updateAmenityResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteAmenityResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addAmenityToHotelResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="removeAmenityFromHotelResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+</xs:schema>

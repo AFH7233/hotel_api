@@ -1,7 +1,7 @@
 -- Create the `hotels` table
 CREATE TABLE IF NOT EXISTS Hotels (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL UNIQUE,
     address VARCHAR(255) NOT NULL,
     rating TINYINT CHECK(rating >= 0 AND rating <= 5)
 );
@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS Hotels (
 -- Create the `amenities` table
 CREATE TABLE IF NOT EXISTS Amenities (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL UNIQUE,
     description VARCHAR(255)
 );
 
@@ -22,6 +22,37 @@ CREATE TABLE IF NOT EXISTS HotelAmenities (
     FOREIGN KEY (amenity_id) REFERENCES Amenities(id) ON DELETE CASCADE
     );
 
+-- Triggers
+
+DELIMITER $$
+CREATE TRIGGER normalize_name_amenity_before_insert
+    BEFORE INSERT ON Amenities
+    FOR EACH ROW
+BEGIN
+    SET NEW.name = LOWER(TRIM(NEW.name));
+END$$
+
+CREATE TRIGGER normalize_name_amenity_before_update
+    BEFORE UPDATE ON Amenities
+    FOR EACH ROW
+BEGIN
+    SET NEW.name = LOWER(TRIM(NEW.name));
+END$$
+
+CREATE TRIGGER normalize_name_hotel_before_insert
+    BEFORE INSERT ON Hotels
+    FOR EACH ROW
+BEGIN
+    SET NEW.name = LOWER(TRIM(NEW.name));
+END$$
+
+CREATE TRIGGER normalize_name_hotel_before_update
+    BEFORE UPDATE ON Hotels
+    FOR EACH ROW
+BEGIN
+    SET NEW.name = LOWER(TRIM(NEW.name));
+END$$
+
 -- Procedure to create a hotel
 DELIMITER $$
 
@@ -32,9 +63,9 @@ BEGIN
 END$$
 
 -- Procedure to delete a hotel
-CREATE PROCEDURE delete_hotel(IN hotel_id INT)
+CREATE PROCEDURE delete_hotel_by_name(IN hotel_name VARCHAR(255))
 BEGIN
-    DELETE FROM Hotels WHERE id = hotel_id;
+    DELETE FROM Hotels WHERE name = LOWER(TRIM(hotel_name));
 END$$
 
 -- Procedure to update a hotel
@@ -48,14 +79,14 @@ BEGIN
 END$$
 
 -- Procedure to get a hotel by id
-CREATE PROCEDURE get_hotel_by_id(IN hotel_id INT)
+CREATE PROCEDURE get_hotel_by_name(IN hotel_name VARCHAR(255))
 BEGIN
-    SELECT * FROM Hotels WHERE id = hotel_id;
+    SELECT * FROM Hotels WHERE name = LOWER(TRIM(hotel_name));
 END$$
 
 
 -- Procedure to get all hotels with a name like the given query
-CREATE PROCEDURE get_hotels_by_name(IN search_query VARCHAR(255))
+CREATE PROCEDURE search_hotels_by_name(IN search_query VARCHAR(255))
 BEGIN
     SELECT * FROM Hotels WHERE name LIKE CONCAT('%', search_query, '%');
 END$$
@@ -77,15 +108,15 @@ WHERE id = amenity_id;
 END$$
 
 -- Procedure to delete an amenity
-CREATE PROCEDURE delete_amenity(IN amenity_id INT)
+CREATE PROCEDURE delete_amenity_by_name(IN amenity_name VARCHAR(255))
 BEGIN
-DELETE FROM Amenities WHERE id = amenity_id;
+DELETE FROM Amenities WHERE name = LOWER(TRIM(amenity_name));
 END$$
 
--- Procedure to get an amenity by id
-CREATE PROCEDURE get_amenity_by_id(IN amenity_id INT)
+-- Procedure to get an amenity by name
+CREATE PROCEDURE get_amenity_by_by_name(IN amenity_name VARCHAR(255))
 BEGIN
-SELECT * FROM Amenities WHERE id = amenity_id;
+SELECT * FROM Amenities WHERE name LIKE LOWER(TRIM(amenity_name));
 END$$
 
 -- Procedure to get amenities by hotel ID

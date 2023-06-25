@@ -1,56 +1,94 @@
 package com.afh.choice.controllers;
 
-import com.afh.choice.dto.Hotel;
-import com.afh.choice.requests.HotelRequest;
-import com.afh.choice.responses.HotelResponse;
+
 import com.afh.choice.services.interfaces.HotelAmenityService;
+import com.afh.choice.soap.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.ws.server.endpoint.PayloadEndpoint;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import javax.websocket.MessageHandler;
-import javax.xml.transform.Source;
+import javax.xml.bind.JAXBElement;
+import java.util.List;
 
 @Endpoint
-@Component
-public class HotelAmenityController implements MessageHandler {
+public class HotelAmenityController {
 
-    private static final String NAMESPACE_URI = "encora:choice";
+    private static final String NAMESPACE_URI = "http://afh.com/choice/soap";
 
-    private final HotelAmenityService hotelService;
+    private final HotelAmenityService hotelAmenityService;
 
-    @Autowired
-    public HotelAmenityController(HotelAmenityService hotelService) {
-        this.hotelService = hotelService;
+
+    public HotelAmenityController(@Autowired HotelAmenityService hotelService) {
+        this.hotelAmenityService = hotelService;
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "HotelRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "createHotelRequest")
     @ResponsePayload
-    public HotelResponse processHotelRequest(@RequestPayload HotelRequest request) {
-        HotelResponse response = new HotelResponse();
-        if (request.getOperation().equalsIgnoreCase("create")) {
-            hotelService.createHotel(request.getHotel());
-            response.setMessage("Hotel created successfully.");
-        } else if (request.getOperation().equalsIgnoreCase("get")) {
-            Hotel hotel = hotelService.getHotelById(request.getHotelId());
-            response.setHotel(hotel);
-        } else if (request.getOperation().equalsIgnoreCase("update")) {
-            hotelService.updateHotel(request.getHotel());
-            response.setMessage("Hotel updated successfully.");
-        } else if (request.getOperation().equalsIgnoreCase("delete")) {
-            hotelService.deleteHotel(request.getHotelId());
-            response.setMessage("Hotel deleted successfully.");
-        } else if (request.getOperation().equalsIgnoreCase("addAmenity")) {
-            hotelService.addAmenityToHotel(request.getHotelId(), request.getAmenityId());
-            response.setMessage("Amenity added to the hotel successfully.");
-        } else if (request.getOperation().equalsIgnoreCase("removeAmenity")) {
-            hotelService.removeAmenityFromHotel(request.getHotelId(), request.getAmenityId());
-            response.setMessage("Amenity removed from the hotel successfully.");
-        }
+    public CreateHotelResponse createHotel(@RequestPayload CreateHotelRequest request) {
+        Hotel hotel = request.getHotel();
+        hotelAmenityService.createHotel(hotel);
+        CreateHotelResponse response = new CreateHotelResponse();
+        response.setMessage("Hotel created successfully");
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateHotelRequest")
+    @ResponsePayload
+    public UpdateHotelResponse updateHotel(@RequestPayload UpdateHotelRequest request) {
+        Hotel hotel = request.getHotel();
+        hotelAmenityService.updateHotel(hotel);
+        UpdateHotelResponse response = new UpdateHotelResponse();
+        response.setMessage("Hotel updated successfully");
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteHotelRequest")
+    @ResponsePayload
+    public DeleteHotelResponse deleteHotel(@RequestPayload DeleteHotelRequest request) {
+        String name = request.getHotelName();
+        hotelAmenityService.deleteHotel(name);
+        DeleteHotelResponse response = new DeleteHotelResponse();
+        response.setMessage("Hotel deleted successfully");
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "searchHotelsByNameRequest")
+    @ResponsePayload
+    public SearchHotelsByNameResponse searchHotelsByName(@RequestPayload SearchHotelsByNameRequest request) {
+        List<HotelComplete> hotels = hotelAmenityService.searchHotelsByName(request.getQuery());
+        SearchHotelsByNameResponse response = new SearchHotelsByNameResponse();
+        response.getHotels().addAll(hotels);
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "addAmenityToHotelRequest")
+    @ResponsePayload
+    public AddAmenityToHotelResponse addAmenityToHotel(@RequestPayload AddAmenityToHotelRequest request) {
+        hotelAmenityService.addAmenityToHotel(request.getHotelName(), request.getAmenityName());
+        AddAmenityToHotelResponse response = new AddAmenityToHotelResponse();
+        response.setMessage("Amenity added successfully");
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateAmenityRequest")
+    @ResponsePayload
+    public UpdateAmenityResponse updateAmenity(@RequestPayload UpdateAmenityRequest request) {
+        Amenity amenity = request.getAmenity();
+        hotelAmenityService.updateAmenity(amenity);
+        UpdateAmenityResponse response = new UpdateAmenityResponse();
+        response.setMessage("Amenity updated successfully");
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteAmenityRequest")
+    @ResponsePayload
+    public DeleteAmenityResponse deleteAmenity(@RequestPayload DeleteAmenityRequest request) {
+        hotelAmenityService.deleteAmenity(request.getAmenityName());
+        DeleteAmenityResponse response = new DeleteAmenityResponse();
+        response.setMessage("Amenity deleted successfully");
         return response;
     }
 }

@@ -1,6 +1,8 @@
 package com.afh.choice.dao.interfaces;
 
-import com.afh.choice.dto.Hotel;
+import com.afh.choice.soap.Hotel;
+import com.afh.choice.soap.HotelComplete;
+
 import java.util.List;
 
 public interface HotelDAO {
@@ -8,11 +10,10 @@ public interface HotelDAO {
 
   void updateHotel(Hotel hotel);
 
-  void deleteHotel(long hotelId);
+  void deleteHotelByName(String name);
 
-  Hotel getHotelById(long hotelId);
-
-  List<Hotel> getHotelsByName(String query);
+  HotelComplete getHotelByName(String name);
+  List<HotelComplete> searchHotelsByName(String query);
 
   void addAmenityToHotel(long hotelId, long amenityId);
 
