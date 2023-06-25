@@ -7,13 +7,8 @@ RUN apt-get update && apt-get install -y maven
 # Set the working directory
 WORKDIR /app
 
-# Copy common project
-COPY common/pom.xml common/
-COPY common/src common/src/
-RUN mvn install -DskipTests -f common/pom.xml
-
 # Set the working directory for the service
-WORKDIR /app/soap-api
+WORKDIR /app/rest-api
 
 # Copy the service-specific POM and source files
 COPY rest-api/pom.xml .

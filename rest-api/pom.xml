@@ -18,13 +18,6 @@
     </properties>
 
     <dependencies>
-        <!-- Common library -->
-        <dependency>
-            <groupId>com.afh.choice</groupId>
-            <artifactId>common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
         <!-- Spring dependencies -->
         <dependency>
             <groupId>org.springframework</groupId>
