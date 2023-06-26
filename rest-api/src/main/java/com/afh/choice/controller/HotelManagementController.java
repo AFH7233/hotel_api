@@ -4,11 +4,12 @@ import com.afh.choice.service.interfaces.HotelAmenityClient;
 import com.afh.choice.soap.*;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/hotels")
+@RequestMapping("/api")
 public class HotelManagementController {
 
   private final HotelAmenityClient hotelClient;
@@ -17,44 +18,44 @@ public class HotelManagementController {
     this.hotelClient = hotelClient;
   }
 
-  @PostMapping("/create")
+  @PostMapping(value = "/hotels", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<String> createHotel(@RequestBody Hotel hotel) {
     CreateHotelResponse response = hotelClient.createHotel(hotel);
     return ResponseEntity.ok(response.getMessage());
   }
 
-  @PutMapping("/update")
+  @PutMapping(value = "/hotels", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<String> updateHotel(@RequestBody Hotel hotel) {
     UpdateHotelResponse response = hotelClient.updateHotel(hotel);
     return ResponseEntity.ok(response.getMessage());
   }
 
-  @DeleteMapping("/delete")
+  @DeleteMapping(value="/hotels", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<String> deleteHotel(@RequestParam String hotelName) {
     DeleteHotelResponse response = hotelClient.deleteHotel(hotelName);
     return ResponseEntity.ok(response.getMessage());
   }
 
-  @GetMapping("/search")
+  @GetMapping(value="/hotels", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<HotelComplete>> searchHotelsByName(@RequestParam String query) {
     SearchHotelsByNameResponse response = hotelClient.searchHotelsByName(query);
     return ResponseEntity.ok(response.getHotels());
   }
 
-  @PostMapping("/add-amenity")
+  @PostMapping(value="/hotels/amenities",produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<String> addAmenityToHotel(
       @RequestParam String hotelName, @RequestParam String amenityName) {
     AddAmenityToHotelResponse response = hotelClient.addAmenityToHotel(hotelName, amenityName);
     return ResponseEntity.ok(response.getMessage());
   }
 
-  @PutMapping("/update-amenity")
+  @PutMapping(value="/amenities", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<String> updateAmenity(@RequestBody Amenity amenity) {
     UpdateAmenityResponse response = hotelClient.updateAmenity(amenity);
     return ResponseEntity.ok(response.getMessage());
   }
 
-  @DeleteMapping("/delete-amenity")
+  @DeleteMapping(value="/amenities",produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<String> deleteAmenity(@RequestParam String amenityName) {
     DeleteAmenityResponse response = hotelClient.deleteAmenity(amenityName);
     return ResponseEntity.ok(response.getMessage());

@@ -1,5 +1,6 @@
 package com.afh.choice.config;
 
+import com.afh.choice.controller.HotelManagementController;
 import com.afh.choice.service.HotelAmenityClientImpl;
 import com.afh.choice.service.interfaces.HotelAmenityClient;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,11 +29,5 @@ public class SoapServiceConfiguration {
     webServiceTemplate.setUnmarshaller(marshaller());
     webServiceTemplate.setDefaultUri(ENDPOINT_URI);
     return webServiceTemplate;
-  }
-
-  @Bean
-  public HotelAmenityClient hotelAmenityClient(){
-    HotelAmenityClient hotelAmenityClient = new HotelAmenityClientImpl(webServiceTemplate());
-    return  hotelAmenityClient;
   }
 }
