@@ -4,12 +4,9 @@ import com.afh.choice.dao.interfaces.AmenityDAO;
 import com.afh.choice.dao.interfaces.HotelDAO;
 import com.afh.choice.services.interfaces.HotelAmenityService;
 import com.afh.choice.soap.Amenity;
-import com.afh.choice.soap.AmenityList;
 import com.afh.choice.soap.Hotel;
-import java.util.List;
-import java.util.Objects;
-
 import com.afh.choice.soap.HotelComplete;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
