@@ -6,6 +6,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.afh.choice.controller")
+@ComponentScan(basePackages = "com.afh.choice")
 public class HotelManagementConfig {
 }
