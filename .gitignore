@@ -33,3 +33,4 @@ replay_pid*
 
 
 soap-api/src/main/java/META-INF
+rest-api/src/main/java/META-INF
