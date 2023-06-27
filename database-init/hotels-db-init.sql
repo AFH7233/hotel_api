@@ -86,9 +86,17 @@ END$$
 
 
 -- Procedure to get all hotels with a name like the given query
-CREATE PROCEDURE search_hotels_by_name(IN search_query VARCHAR(255))
+CREATE PROCEDURE search_hotels_by_name(IN search_query VARCHAR(255), IN page_size INT, IN page_number INT)
 BEGIN
-    SELECT * FROM Hotels WHERE name LIKE CONCAT('%', search_query, '%');
+    DECLARE offset INT;
+
+    SET offset = (page_number - 1) * page_size;
+
+    SELECT *
+    FROM Hotels
+    WHERE name LIKE CONCAT(search_query, '%')
+    ORDER BY id
+    LIMIT offset, page_size;
 END$$
 
 -- Procedure to get an amenity by name

@@ -9,7 +9,7 @@ public interface HotelAmenityClient {
 
     DeleteHotelResponse deleteHotel(String hotelName);
 
-    SearchHotelsByNameResponse searchHotelsByName(String query);
+    SearchHotelsByNameResponse searchHotelsByName(String query, int pageNumber);
 
     AddAmenityToHotelResponse addAmenityToHotel(String hotelName, String amenityName);
 

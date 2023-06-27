@@ -53,9 +53,10 @@ public class HotelAmenityClientImpl implements HotelAmenityClient {
   }
 
   @Override
-  public SearchHotelsByNameResponse searchHotelsByName(String query) {
+  public SearchHotelsByNameResponse searchHotelsByName(String query, int pageNumber) {
     SearchHotelsByNameRequest request = new SearchHotelsByNameRequest();
     request.setQuery(query);
+    request.setPageNumber(pageNumber);
 
     SearchHotelsByNameResponse response =
         (SearchHotelsByNameResponse)

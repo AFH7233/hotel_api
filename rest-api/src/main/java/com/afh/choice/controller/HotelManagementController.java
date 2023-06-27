@@ -37,8 +37,8 @@ public class HotelManagementController {
   }
 
   @GetMapping(value="/hotels", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<HotelComplete>> searchHotelsByName(@RequestParam String query) {
-    SearchHotelsByNameResponse response = hotelClient.searchHotelsByName(query);
+  public ResponseEntity<List<HotelComplete>> searchHotelsByName(@RequestParam String query, @RequestParam int pageNumber) {
+    SearchHotelsByNameResponse response = hotelClient.searchHotelsByName(query, pageNumber);
     return ResponseEntity.ok(response.getHotels());
   }
 
