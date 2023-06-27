@@ -2,6 +2,11 @@ package com.afh.choice.service.interfaces;
 
 import com.afh.choice.soap.*;
 
+/**
+ * Hotel Client contains the methods that are present on the SOAP service.
+ *
+ * @author Andres Fuentes Hernandez
+ */
 public interface HotelAmenityClient {
     CreateHotelResponse createHotel(Hotel hotel);
 
