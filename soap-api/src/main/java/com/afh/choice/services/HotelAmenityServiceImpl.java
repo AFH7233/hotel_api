@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class HotelAmenityServiceImpl implements HotelAmenityService {
 
   private final HotelDAO hotelDAO;
+
   private final AmenityDAO amenityDAO;
 
   public HotelAmenityServiceImpl(@Autowired HotelDAO hotelDAO, @Autowired AmenityDAO amenityDAO) {
@@ -22,8 +23,10 @@ public class HotelAmenityServiceImpl implements HotelAmenityService {
   }
 
   @Override
-  public void createHotel(Hotel hotel) {
+  public HotelComplete createHotel(Hotel hotel) {
     this.hotelDAO.createHotel(hotel);
+    HotelComplete hotelComplete = this.hotelDAO.getHotelByName(hotel.getName());
+    return hotelComplete;
   }
 
   @Override
@@ -32,8 +35,14 @@ public class HotelAmenityServiceImpl implements HotelAmenityService {
   }
 
   @Override
-  public void updateHotel(Hotel hotel) {
+  public HotelComplete updateHotel(Hotel hotel) {
+    HotelComplete hotelComplete = this.hotelDAO.getHotelByName(hotel.getName());
+    hotel.setId(hotelComplete.getId());
     this.hotelDAO.updateHotel(hotel);
+    hotelComplete.setName(hotel.getName());
+    hotelComplete.setAddress(hotel.getAddress());
+    hotelComplete.setRating(hotel.getRating());
+    return hotelComplete;
   }
 
   @Override
@@ -42,31 +51,20 @@ public class HotelAmenityServiceImpl implements HotelAmenityService {
   }
 
   @Override
-  public void createAmenity(Amenity amenity) {
-    this.amenityDAO.createAmenity(amenity);
-  }
-
-  @Override
-  public void updateAmenity(Amenity amenity) {
-    this.amenityDAO.updateAmenity(amenity);
-  }
-
-  @Override
-  public void deleteAmenity(String amenityName) {
-    this.amenityDAO.deleteAmenityByName(amenityName);
-  }
-
-  @Override
-  public void addAmenityToHotel(String hotelName, String amenityName) {
+  public HotelComplete addAmenityToHotel(String hotelName, String amenityName) {
     HotelComplete hotel = this.hotelDAO.getHotelByName(hotelName);
     Amenity amenity = this.amenityDAO.getAmenityByName(amenityName);
     this.hotelDAO.addAmenityToHotel(hotel.getId(), amenity.getId());
+    HotelComplete hotelComplete = this.hotelDAO.getHotelByName(hotel.getName());
+    return hotelComplete;
   }
 
   @Override
-  public void removeAmenityToHotel(String hotelName, String amenityName) {
+  public HotelComplete removeAmenityFromHotel(String hotelName, String amenityName) {
     HotelComplete hotel = this.hotelDAO.getHotelByName(hotelName);
     Amenity amenity = this.amenityDAO.getAmenityByName(amenityName);
     this.hotelDAO.removeAmenityFromHotel(hotel.getId(), amenity.getId());
+    HotelComplete hotelComplete = this.hotelDAO.getHotelByName(hotel.getName());
+    return hotelComplete;
   }
 }

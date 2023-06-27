@@ -27,4 +27,4 @@ WORKDIR /app
 COPY --from=build /app/soap-api/target/*.jar app.jar
 
 # Wait for data bases and tun the application with the dev profile
-ENTRYPOINT ["sh", "-c", "sleep 25 && java -jar app.jar --spring.profiles.active=dev"]
+ENTRYPOINT ["sh", "-c", "sleep 30 && java -jar app.jar --spring.profiles.active=dev"]

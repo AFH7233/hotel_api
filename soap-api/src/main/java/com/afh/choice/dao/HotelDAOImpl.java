@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class HotelDAOImpl implements HotelDAO {
@@ -22,12 +23,14 @@ public class HotelDAOImpl implements HotelDAO {
   }
 
   @Override
+  @Transactional
   public void createHotel(Hotel hotel) {
     jdbcTemplate.update(
         "CALL create_hotel(?, ?, ?)", hotel.getName(), hotel.getAddress(), hotel.getRating());
   }
 
   @Override
+  @Transactional
   public void updateHotel(Hotel hotel) {
     jdbcTemplate.update(
         "CALL update_hotel(?, ?, ?, ?)",
@@ -38,6 +41,7 @@ public class HotelDAOImpl implements HotelDAO {
   }
 
   @Override
+  @Transactional
   public void deleteHotelByName(String hotelName) {
     jdbcTemplate.update("CALL delete_hotel_by_name(?)", hotelName);
   }
@@ -87,11 +91,13 @@ public class HotelDAOImpl implements HotelDAO {
   }
 
   @Override
+  @Transactional
   public void addAmenityToHotel(long hotelId, long amenityId) {
     jdbcTemplate.update("CALL add_amenity_to_hotel(?, ?)", hotelId, amenityId);
   }
 
   @Override
+  @Transactional
   public void removeAmenityFromHotel(long hotelId, long amenityId) {
     jdbcTemplate.update("CALL remove_amenity_from_hotel(?, ?)", hotelId, amenityId);
   }

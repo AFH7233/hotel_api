@@ -29,9 +29,9 @@ public class HotelAmenityController {
     @ResponsePayload
     public CreateHotelResponse createHotel(@RequestPayload CreateHotelRequest request) {
         Hotel hotel = request.getHotel();
-        hotelAmenityService.createHotel(hotel);
+        HotelComplete hotelComplete = hotelAmenityService.createHotel(hotel);
         CreateHotelResponse response = new CreateHotelResponse();
-        response.setMessage("Hotel created successfully");
+        response.setHotel(hotelComplete);
         return response;
     }
 
@@ -39,9 +39,9 @@ public class HotelAmenityController {
     @ResponsePayload
     public UpdateHotelResponse updateHotel(@RequestPayload UpdateHotelRequest request) {
         Hotel hotel = request.getHotel();
-        hotelAmenityService.updateHotel(hotel);
+        HotelComplete hotelComplete = hotelAmenityService.updateHotel(hotel);
         UpdateHotelResponse response = new UpdateHotelResponse();
-        response.setMessage("Hotel updated successfully");
+        response.setHotel(hotelComplete);
         return response;
     }
 
@@ -67,28 +67,18 @@ public class HotelAmenityController {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "addAmenityToHotelRequest")
     @ResponsePayload
     public AddAmenityToHotelResponse addAmenityToHotel(@RequestPayload AddAmenityToHotelRequest request) {
-        hotelAmenityService.addAmenityToHotel(request.getHotelName(), request.getAmenityName());
+        HotelComplete hotelComplete = hotelAmenityService.addAmenityToHotel(request.getHotelName(), request.getAmenityName());
         AddAmenityToHotelResponse response = new AddAmenityToHotelResponse();
-        response.setMessage("Amenity added successfully");
+        response.setHotel(hotelComplete);
         return response;
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateAmenityRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "removeAmenityFromHotelRequest")
     @ResponsePayload
-    public UpdateAmenityResponse updateAmenity(@RequestPayload UpdateAmenityRequest request) {
-        Amenity amenity = request.getAmenity();
-        hotelAmenityService.updateAmenity(amenity);
-        UpdateAmenityResponse response = new UpdateAmenityResponse();
-        response.setMessage("Amenity updated successfully");
-        return response;
-    }
-
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteAmenityRequest")
-    @ResponsePayload
-    public DeleteAmenityResponse deleteAmenity(@RequestPayload DeleteAmenityRequest request) {
-        hotelAmenityService.deleteAmenity(request.getAmenityName());
-        DeleteAmenityResponse response = new DeleteAmenityResponse();
-        response.setMessage("Amenity deleted successfully");
+    public RemoveAmenityFromHotelResponse removeAmenityFromHotel(@RequestPayload RemoveAmenityFromHotelRequest request) {
+        HotelComplete hotelComplete = hotelAmenityService.removeAmenityFromHotel(request.getHotelName(), request.getAmenityName());
+        RemoveAmenityFromHotelResponse response = new RemoveAmenityFromHotelResponse();
+        response.setHotel(hotelComplete);
         return response;
     }
 }

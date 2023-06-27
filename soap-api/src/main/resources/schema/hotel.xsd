@@ -77,30 +77,6 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="createAmenityRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="amenity" type="Amenity"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="updateAmenityRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="amenity" type="Amenity"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="deleteAmenityRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="amenityName" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
     <xs:element name="addAmenityToHotelRequest">
         <xs:complexType>
             <xs:sequence>
@@ -125,7 +101,7 @@
     <xs:element name="createHotelResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="message" type="xs:string"/>
+                <xs:element name="hotel" type="HotelComplete"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -133,7 +109,7 @@
     <xs:element name="updateHotelResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="message" type="xs:string"/>
+                <xs:element name="hotel" type="HotelComplete"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -154,34 +130,10 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="createAmenityResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="message" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="updateAmenityResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="message" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="deleteAmenityResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="message" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
     <xs:element name="addAmenityToHotelResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="message" type="xs:string"/>
+                <xs:element name="hotel" type="HotelComplete"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -189,7 +141,7 @@
     <xs:element name="removeAmenityFromHotelResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="message" type="xs:string"/>
+                <xs:element name="hotel" type="HotelComplete"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

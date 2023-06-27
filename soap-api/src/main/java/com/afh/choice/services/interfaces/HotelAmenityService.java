@@ -8,23 +8,17 @@ import java.util.List;
 
 public interface HotelAmenityService {
 
-    void createHotel(Hotel hotel);
+    HotelComplete createHotel(Hotel hotel);
 
     List<HotelComplete> searchHotelsByName(String query);
 
-    void updateHotel(Hotel hotel);
+    HotelComplete updateHotel(Hotel hotel);
 
     void deleteHotel(String name);
 
-    void createAmenity(Amenity amenity);
+    HotelComplete addAmenityToHotel(String hotelName, String amenityName);
 
-    void updateAmenity(Amenity amenity);
-
-    void deleteAmenity(String amenityName);
-
-    void addAmenityToHotel(String hotelName, String amenityName);
-
-    void removeAmenityToHotel(String hotelName, String amenityName);
+    HotelComplete removeAmenityFromHotel(String hotelName, String amenityName);
 
 
 

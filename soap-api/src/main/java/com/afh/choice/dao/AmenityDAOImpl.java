@@ -19,25 +19,6 @@ public class AmenityDAOImpl implements AmenityDAO {
     this.jdbcTemplate = jdbcTemplate;
   }
 
-  public void createAmenity(Amenity amenity) {
-    if (Objects.isNull(amenity.getId())){
-      jdbcTemplate.update("CALL create_amenity(?, ?)", amenity.getName(), amenity.getDescription());
-    }
-  }
-
-  public void updateAmenity(Amenity amenity) {
-    jdbcTemplate.update(
-        "CALL update_amenity(?, ?, ?)",
-        amenity.getId(),
-        amenity.getName(),
-        amenity.getDescription());
-  }
-
-  @Override
-  public void deleteAmenityByName(String amenityName) {
-    jdbcTemplate.update("CALL delete_amenity_by_name(?)", amenityName);
-  }
-
   @Override
   public Amenity getAmenityByName(String amenityName) {
     Amenity amenityResult =
@@ -54,7 +35,4 @@ public class AmenityDAOImpl implements AmenityDAO {
     return amenityResult;
   }
 
-  public void deleteAmenityByName(long amenityId) {
-    jdbcTemplate.update("CALL delete_amenity(?)", amenityId);
-  }
 }

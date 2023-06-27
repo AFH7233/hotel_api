@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.3.2 
 // Visite <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2023.06.24 a las 10:28:46 PM CST 
+// Generado el: 2023.06.26 a las 09:08:38 PM CST 
 //
 
 
@@ -77,38 +77,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CreateAmenityRequest }
-     * 
-     */
-    public CreateAmenityRequest createCreateAmenityRequest() {
-        return new CreateAmenityRequest();
-    }
-
-    /**
-     * Create an instance of {@link Amenity }
-     * 
-     */
-    public Amenity createAmenity() {
-        return new Amenity();
-    }
-
-    /**
-     * Create an instance of {@link UpdateAmenityRequest }
-     * 
-     */
-    public UpdateAmenityRequest createUpdateAmenityRequest() {
-        return new UpdateAmenityRequest();
-    }
-
-    /**
-     * Create an instance of {@link DeleteAmenityRequest }
-     * 
-     */
-    public DeleteAmenityRequest createDeleteAmenityRequest() {
-        return new DeleteAmenityRequest();
-    }
-
-    /**
      * Create an instance of {@link AddAmenityToHotelRequest }
      * 
      */
@@ -130,6 +98,14 @@ public class ObjectFactory {
      */
     public CreateHotelResponse createCreateHotelResponse() {
         return new CreateHotelResponse();
+    }
+
+    /**
+     * Create an instance of {@link HotelComplete }
+     * 
+     */
+    public HotelComplete createHotelComplete() {
+        return new HotelComplete();
     }
 
     /**
@@ -157,38 +133,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link HotelComplete }
-     * 
-     */
-    public HotelComplete createHotelComplete() {
-        return new HotelComplete();
-    }
-
-    /**
-     * Create an instance of {@link CreateAmenityResponse }
-     * 
-     */
-    public CreateAmenityResponse createCreateAmenityResponse() {
-        return new CreateAmenityResponse();
-    }
-
-    /**
-     * Create an instance of {@link UpdateAmenityResponse }
-     * 
-     */
-    public UpdateAmenityResponse createUpdateAmenityResponse() {
-        return new UpdateAmenityResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeleteAmenityResponse }
-     * 
-     */
-    public DeleteAmenityResponse createDeleteAmenityResponse() {
-        return new DeleteAmenityResponse();
-    }
-
-    /**
      * Create an instance of {@link AddAmenityToHotelResponse }
      * 
      */
@@ -202,6 +146,14 @@ public class ObjectFactory {
      */
     public RemoveAmenityFromHotelResponse createRemoveAmenityFromHotelResponse() {
         return new RemoveAmenityFromHotelResponse();
+    }
+
+    /**
+     * Create an instance of {@link Amenity }
+     * 
+     */
+    public Amenity createAmenity() {
+        return new Amenity();
     }
 
     /**
