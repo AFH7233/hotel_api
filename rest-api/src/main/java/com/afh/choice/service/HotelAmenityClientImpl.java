@@ -10,7 +10,8 @@ import org.springframework.ws.client.core.WebServiceTemplate;
 @Service
 public class HotelAmenityClientImpl implements HotelAmenityClient {
 
-  private String NAMESPACE_URI ="http://afh.com/choice/soap";
+  @Value("${hotel.endpoint.url}")
+  private String NAMESPACE_URI;
 
   private final WebServiceTemplate webServiceTemplate;
 
@@ -77,24 +78,16 @@ public class HotelAmenityClientImpl implements HotelAmenityClient {
   }
 
   @Override
-  public UpdateAmenityResponse updateAmenity(Amenity amenity) {
-    UpdateAmenityRequest request = new UpdateAmenityRequest();
-    request.setAmenity(amenity);
-
-    UpdateAmenityResponse response =
-        (UpdateAmenityResponse) webServiceTemplate.marshalSendAndReceive(NAMESPACE_URI, request);
-
-    return response;
-  }
-
-  @Override
-  public DeleteAmenityResponse deleteAmenity(String amenityName) {
-    DeleteAmenityRequest request = new DeleteAmenityRequest();
+  public RemoveAmenityFromHotelResponse removeAmenityFromHotel(String hotelName, String amenityName) {
+    RemoveAmenityFromHotelRequest request = new RemoveAmenityFromHotelRequest();
+    request.setHotelName(hotelName);
     request.setAmenityName(amenityName);
 
-    DeleteAmenityResponse response =
-        (DeleteAmenityResponse) webServiceTemplate.marshalSendAndReceive(NAMESPACE_URI, request);
+    RemoveAmenityFromHotelResponse response =
+            (RemoveAmenityFromHotelResponse)
+                    webServiceTemplate.marshalSendAndReceive(NAMESPACE_URI, request);
 
     return response;
   }
+
 }

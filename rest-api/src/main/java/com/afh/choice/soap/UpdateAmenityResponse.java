@@ -2,7 +2,7 @@
 // Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.3.2 
 // Visite <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
 // Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
-// Generado el: 2023.06.25 a las 10:17:24 PM CST 
+// Generado el: 2023.06.26 a las 08:52:21 PM CST 
 //
 
 
@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="amenity" type="{http://afh.com/choice/soap}Amenity"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,36 +36,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "message"
+    "amenity"
 })
 @XmlRootElement(name = "updateAmenityResponse")
 public class UpdateAmenityResponse {
 
     @XmlElement(required = true)
-    protected String message;
+    protected Amenity amenity;
 
     /**
-     * Obtiene el valor de la propiedad message.
+     * Obtiene el valor de la propiedad amenity.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Amenity }
      *     
      */
-    public String getMessage() {
-        return message;
+    public Amenity getAmenity() {
+        return amenity;
     }
 
     /**
-     * Define el valor de la propiedad message.
+     * Define el valor de la propiedad amenity.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Amenity }
      *     
      */
-    public void setMessage(String value) {
-        this.message = value;
+    public void setAmenity(Amenity value) {
+        this.amenity = value;
     }
 
 }

@@ -13,7 +13,6 @@ public interface HotelAmenityClient {
 
     AddAmenityToHotelResponse addAmenityToHotel(String hotelName, String amenityName);
 
-    UpdateAmenityResponse updateAmenity(Amenity amenity);
+    RemoveAmenityFromHotelResponse removeAmenityFromHotel(String hotelName, String amenityName);
 
-    DeleteAmenityResponse deleteAmenity(String amenityName);
 }

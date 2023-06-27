@@ -26,4 +26,4 @@ COPY --from=build /app/rest-api/target/rest-api-1.0-SNAPSHOT.war /usr/local/tomc
 EXPOSE 8080
 
 # Start Tomcat when the container is launched
-CMD ["catalina.sh", "run"]
+CMD ["sh", "-c", "sleep 35 && catalina.sh run"]

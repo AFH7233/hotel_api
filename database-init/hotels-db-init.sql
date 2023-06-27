@@ -91,28 +91,6 @@ BEGIN
     SELECT * FROM Hotels WHERE name LIKE CONCAT('%', search_query, '%');
 END$$
 
--- Procedure to create an amenity
-CREATE PROCEDURE create_amenity(IN amenity_name VARCHAR(255), IN amenity_description VARCHAR(255))
-BEGIN
-INSERT INTO Amenities (name, description)
-VALUES (amenity_name, amenity_description);
-END$$
-
--- Procedure to update an amenity
-CREATE PROCEDURE update_amenity(IN amenity_id INT, IN amenity_name VARCHAR(255), IN amenity_description VARCHAR(255))
-BEGIN
-UPDATE Amenities SET
-                     name = amenity_name,
-                     description = amenity_description
-WHERE id = amenity_id;
-END$$
-
--- Procedure to delete an amenity
-CREATE PROCEDURE delete_amenity_by_name(IN amenity_name VARCHAR(255))
-BEGIN
-DELETE FROM Amenities WHERE name = LOWER(TRIM(amenity_name));
-END$$
-
 -- Procedure to get an amenity by name
 CREATE PROCEDURE get_amenity_by_by_name(IN amenity_name VARCHAR(255))
 BEGIN
@@ -129,9 +107,9 @@ SELECT
 FROM
     Amenities
         JOIN
-    Hotel_Amenities ON Amenities.id = Hotel_Amenities.amenity_id
+    HotelAmenities ON Amenities.id = HotelAmenities.amenity_id
 WHERE
-        Hotel_Amenities.hotel_id = p_hotel_id;
+        HotelAmenities.hotel_id = p_hotel_id;
 END$$
 
 -- Procedure to add an amenity to a hotel
@@ -148,3 +126,9 @@ DELETE FROM HotelAmenities
 WHERE hotel_id = hotel_id
   AND amenity_id = amenity_id;
 END$$
+
+-- Insert amenities data
+INSERT INTO Amenities (name, description) VALUES ('pool', '');
+INSERT INTO Amenities (name, description) VALUES ('bar', '');
+INSERT INTO Amenities (name, description) VALUES ('meeting room', 'meeting room for business travel, has screens and printer');
+INSERT INTO Amenities (name, description) VALUES ('restaurant', '');
