@@ -8,6 +8,7 @@ import com.afh.choice.soap.HotelComplete;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class HotelDAOImpl implements HotelDAO {
 
   private final JdbcTemplate jdbcTemplate;
+
+  @Value("${hotels.page.size:2}")
+  private int PAGE_SIZE;
 
   @Autowired
   public HotelDAOImpl(JdbcTemplate jdbcTemplate) {
@@ -68,17 +72,17 @@ public class HotelDAOImpl implements HotelDAO {
   }
 
   @Override
-  public List<HotelComplete> searchHotelsByName(String query) {
+  public List<HotelComplete> searchHotelsByName(String query, int pageNumber) {
     List<HotelComplete> hotels =
         jdbcTemplate.query(
-            "CALL search_hotels_by_name(?)",
-            new Object[] {query},
+            "CALL search_hotels_by_name(?,?,?)",
+            new Object[] {query, new Integer(PAGE_SIZE), new Integer(pageNumber)},
             (rs, rowNum) -> {
               HotelComplete hotel = new HotelComplete();
-              hotel.setId(rs.getLong("hotel_id"));
-              hotel.setName(rs.getString("hotel_name"));
-              hotel.setAddress(rs.getString("hotel_address"));
-              hotel.setRating(rs.getInt("hotel_rating"));
+              hotel.setId(rs.getLong("id"));
+              hotel.setName(rs.getString("name"));
+              hotel.setAddress(rs.getString("address"));
+              hotel.setRating(rs.getInt("rating"));
               return hotel;
             });
 

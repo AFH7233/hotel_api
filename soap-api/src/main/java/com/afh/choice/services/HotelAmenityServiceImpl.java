@@ -30,8 +30,8 @@ public class HotelAmenityServiceImpl implements HotelAmenityService {
   }
 
   @Override
-  public List<HotelComplete> searchHotelsByName(String query) {
-    return this.hotelDAO.searchHotelsByName(query);
+  public List<HotelComplete> searchHotelsByName(String query, int pageNumber)  {
+    return this.hotelDAO.searchHotelsByName(query, pageNumber);
   }
 
   @Override

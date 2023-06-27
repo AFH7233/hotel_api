@@ -13,7 +13,7 @@ public interface HotelDAO {
   void deleteHotelByName(String name);
 
   HotelComplete getHotelByName(String name);
-  List<HotelComplete> searchHotelsByName(String query);
+  List<HotelComplete> searchHotelsByName(String query, int pageNumber) ;
 
   void addAmenityToHotel(long hotelId, long amenityId);
 

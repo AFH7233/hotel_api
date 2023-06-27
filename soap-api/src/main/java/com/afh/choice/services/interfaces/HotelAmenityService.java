@@ -10,7 +10,7 @@ public interface HotelAmenityService {
 
     HotelComplete createHotel(Hotel hotel);
 
-    List<HotelComplete> searchHotelsByName(String query);
+    List<HotelComplete> searchHotelsByName(String query, int pageNumber);
 
     HotelComplete updateHotel(Hotel hotel);
 

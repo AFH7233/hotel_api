@@ -58,7 +58,7 @@ public class HotelAmenityController {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "searchHotelsByNameRequest")
     @ResponsePayload
     public SearchHotelsByNameResponse searchHotelsByName(@RequestPayload SearchHotelsByNameRequest request) {
-        List<HotelComplete> hotels = hotelAmenityService.searchHotelsByName(request.getQuery());
+        List<HotelComplete> hotels = hotelAmenityService.searchHotelsByName(request.getQuery(), request.getPageNumber());
         SearchHotelsByNameResponse response = new SearchHotelsByNameResponse();
         response.getHotels().addAll(hotels);
         return response;
