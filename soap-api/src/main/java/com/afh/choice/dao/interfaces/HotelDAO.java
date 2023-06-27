@@ -5,6 +5,11 @@ import com.afh.choice.soap.HotelComplete;
 
 import java.util.List;
 
+/**
+ * Data access layer for Hotel CRUD.
+ *
+ * @author Andres Fuentes Hernandez
+ */
 public interface HotelDAO {
   void createHotel(Hotel hotel);
 

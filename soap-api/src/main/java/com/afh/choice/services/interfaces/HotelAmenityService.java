@@ -1,11 +1,15 @@
 package com.afh.choice.services.interfaces;
 
-import com.afh.choice.soap.Amenity;
 import com.afh.choice.soap.Hotel;
 import com.afh.choice.soap.HotelComplete;
 
 import java.util.List;
 
+/**
+ * Service layer for Hotel and Amenity CRUD.
+ *
+ * @author Andres Fuentes Hernandez
+ */
 public interface HotelAmenityService {
 
     HotelComplete createHotel(Hotel hotel);
@@ -19,8 +23,6 @@ public interface HotelAmenityService {
     HotelComplete addAmenityToHotel(String hotelName, String amenityName);
 
     HotelComplete removeAmenityFromHotel(String hotelName, String amenityName);
-
-
 
 
 }

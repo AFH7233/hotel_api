@@ -8,18 +8,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
-import org.springframework.ws.server.EndpointAdapter;
-import org.springframework.ws.server.endpoint.adapter.PayloadEndpointAdapter;
-import org.springframework.ws.soap.SoapVersion;
-import org.springframework.ws.soap.saaj.SaajSoapMessageFactory;
-import org.springframework.ws.soap.server.endpoint.annotation.SoapActions;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
 
-import java.util.Properties;
-
+/**
+ * SOAP endpoint configuration.
+ *
+ * @author Andres Fuentes Hernandez
+ */
 @Configuration
 @EnableWs
 public class SoapEndpointConfiguration extends WsConfigurerAdapter {
@@ -32,6 +30,7 @@ public class SoapEndpointConfiguration extends WsConfigurerAdapter {
         servlet.setTransformWsdlLocations(true);
         return new ServletRegistrationBean<>(servlet, "/ws/*");
     }
+
     @Bean(name = "HotelServiceEndpoint")
     public DefaultWsdl11Definition hotelServiceDefinition() {
         DefaultWsdl11Definition definition = new DefaultWsdl11Definition();

@@ -6,10 +6,16 @@ import com.afh.choice.services.interfaces.HotelAmenityService;
 import com.afh.choice.soap.Amenity;
 import com.afh.choice.soap.Hotel;
 import com.afh.choice.soap.HotelComplete;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+/**
+ * Service layer implementation for Hotel and Amenity CRUD.
+ *
+ * @author Andres Fuentes Hernandez
+ */
 @Service
 public class HotelAmenityServiceImpl implements HotelAmenityService {
 

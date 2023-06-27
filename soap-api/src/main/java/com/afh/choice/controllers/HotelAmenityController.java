@@ -9,10 +9,13 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import javax.websocket.MessageHandler;
-import javax.xml.bind.JAXBElement;
 import java.util.List;
 
+/**
+ * SOAP Endpoint for hotel requests
+ *
+ * @author Andres Fuentes Hernandez
+ */
 @Endpoint
 public class HotelAmenityController {
 
@@ -24,7 +27,7 @@ public class HotelAmenityController {
     public HotelAmenityController(@Autowired HotelAmenityService hotelService) {
         this.hotelAmenityService = hotelService;
     }
-
+    
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "createHotelRequest")
     @ResponsePayload
     public CreateHotelResponse createHotel(@RequestPayload CreateHotelRequest request) {
