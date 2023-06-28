@@ -4,6 +4,7 @@ import com.afh.choice.service.interfaces.HotelAmenityClient;
 import com.afh.choice.soap.*;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -33,6 +34,7 @@ public class HotelManagementController {
      */
     @PostMapping(value = "/hotels", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HotelComplete> createHotel(@RequestBody Hotel hotel) {
+        validateHotel(hotel);
         CreateHotelResponse response = hotelClient.createHotel(hotel);
         return ResponseEntity.ok(response.getHotel());
     }
@@ -45,6 +47,7 @@ public class HotelManagementController {
      */
     @PutMapping(value = "/hotels", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HotelComplete> updateHotel(@RequestBody Hotel hotel) {
+        validateHotel(hotel);
         UpdateHotelResponse response = hotelClient.updateHotel(hotel);
         return ResponseEntity.ok(response.getHotel());
     }
@@ -102,4 +105,15 @@ public class HotelManagementController {
         return ResponseEntity.ok(response.getHotel());
     }
 
+    private void validateHotel(Hotel hotel){
+        if(hotel.getRating() < 0 || hotel.getRating() > 5){
+            throw new IllegalArgumentException("Ratings must be numbers between 0 and 5.");
+        }
+        if(Objects.isNull(hotel.getName()) || hotel.getName().trim().isEmpty()){
+            throw new IllegalArgumentException("Name cannot be empty.");
+        }
+        if(Objects.isNull(hotel.getAddress()) || hotel.getAddress().trim().isEmpty()){
+            throw new IllegalArgumentException("Address cannot be empty.");
+        }
+    }
 }

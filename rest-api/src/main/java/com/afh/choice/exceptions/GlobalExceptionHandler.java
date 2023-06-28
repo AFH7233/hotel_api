@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
             SoapFaultClientException ex, WebRequest request) {
         String fault = ex.getFaultStringOrReason();
         if (fault.contains("SQLIntegrityConstraintViolationException")) {
-            if(fault.contains("HotelAmenities.PRIMARY")) {
+            if (fault.contains("HotelAmenities.PRIMARY")) {
                 return new ResponseEntity<>("The amenity was already added to the hotel.", HttpStatus.NOT_ACCEPTABLE);
             } else {
                 return new ResponseEntity<>("The hotel name must be unique, all names are trimmed and converted to lower case.", HttpStatus.NOT_ACCEPTABLE);
@@ -29,6 +29,11 @@ public class GlobalExceptionHandler {
             return new ResponseEntity<>("The hotel/amenity does not exist.", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(ex.getFaultStringOrReason(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<?> handleInvalidArgument(IllegalArgumentException ex, WebRequest request) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_ACCEPTABLE);
     }
 
 
