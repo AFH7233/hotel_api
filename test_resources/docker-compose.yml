@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  hotels-test-db:
+    image: mysql:8.0
+    container_name: hotels-test-db
+    environment:
+      MYSQL_ROOT_PASSWORD: porfavornomedespidanmeportobien
+      MYSQL_DATABASE: hotels_service_test_db
+      MYSQL_USER: near
+      MYSQL_PASSWORD: soft
+    ports:
+      - "3306:3306"
+    volumes:
+      - ../database-init/hotels-db-init.sql:/docker-entrypoint-initdb.d/hotels-db-init.sql
+    networks:
+      - choice-network
+
+volumes:
+  mysql-data:
+
+networks:
+  choice-network:

@@ -42,9 +42,8 @@ public class HotelAmenityServiceImpl implements HotelAmenityService {
 
   @Override
   public HotelComplete updateHotel(Hotel hotel) {
-    HotelComplete hotelComplete = this.hotelDAO.getHotelByName(hotel.getName());
-    hotel.setId(hotelComplete.getId());
     this.hotelDAO.updateHotel(hotel);
+    HotelComplete hotelComplete = this.hotelDAO.getHotelByName(hotel.getName());
     hotelComplete.setName(hotel.getName());
     hotelComplete.setAddress(hotel.getAddress());
     hotelComplete.setRating(hotel.getRating());

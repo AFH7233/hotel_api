@@ -44,9 +44,10 @@ public class HotelDAOImpl implements HotelDAO {
     @Override
     @Transactional
     public void updateHotel(Hotel hotel) {
+        HotelComplete hotelComplete = this.getHotelByName(hotel.getName());
         jdbcTemplate.update(
                 "CALL update_hotel(?, ?, ?, ?)",
-                hotel.getId(),
+                hotelComplete.getId(),
                 hotel.getName(),
                 hotel.getAddress(),
                 hotel.getRating());
